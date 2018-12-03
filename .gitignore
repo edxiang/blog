@@ -1,0 +1,6 @@
+#ignore the file and directory
+.idea
+.mvn
+blog.iml
+mvnw
+mvnw.cmd
