@@ -1,0 +1,51 @@
+spring:
+  datasource:
+    url: jdbc:mysql://144.34.242.178:3306/myblog
+    username: root
+    password: rootroot
+    driver-class-name: com.mysql.cj.jdbc.Driver  #You often do not need to specify the driver-class-name, since Spring Boot can deduce it for most databases from the url.
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-timeout: 200000  # is the maximum number of milliseconds that a client will wait for a connection from connection pool.
+      minimum-idle: 5  # is the minimum number of idle connections that is maintained by HikariCP in connection pool.
+      maximum-pool-size: 8  # configures the maximum pool size.
+      idle-timeout: 300000  # is the maximum amount of time in milliseconds that a connection is allowed to sit idle in connection pool.
+      max-lifetime: 1200000  # is the maximum life time in milliseconds of a connection in pool after it is closed.
+      auto-commit: true  # configures the default auto-commit behavior of connections returned from pool. Default value is true.
+
+#  cache:
+#    type: redis
+#  redis:
+#    host: localhost
+#    port: 6379
+#    password:
+#    lettuce:
+#      pool:
+#        max-active: 8
+#        max-idle: 5
+#        min-idle: 2
+#        max-wait: -1ms
+#      shutdown-timeout: 100ms
+
+#thymeleaf
+  thymeleaf:
+    cache: false
+    check-template: true
+    check-template-location: true
+    enabled: true
+    encoding: UTF-8
+    mode: HTML
+    prefix: calsspath:/templates/
+    suffix: .html
+    servlet:
+      content-type: text/html
+      produce-partial-output-while-processing: true
+
+#file upload
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 0B
+      max-file-size: 32MB
+      max-request-size: 128MB
+      resolve-lazily: false

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kevin.blog.mapper.ArticleMapper">
+  <resultMap id="BaseResultMap" type="org.kevin.blog.model.Article">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="media_url" jdbcType="VARCHAR" property="mediaUrl" />
+    <result column="article_type" jdbcType="VARCHAR" property="articleType" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="delete_flag" jdbcType="BIT" property="deleteFlag" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.kevin.blog.model.ArticleWithBLOBs">
+    <result column="foreword" jdbcType="LONGVARCHAR" property="foreword" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    foreword, content
+  </sql>
+  <insert id="insert" parameterType="org.kevin.blog.model.ArticleWithBLOBs">
+    insert into article (id, media_url, article_type, 
+      note, delete_flag, create_time, 
+      update_time, foreword, content
+      )
+    values (#{id,jdbcType=VARCHAR}, #{mediaUrl,jdbcType=VARCHAR}, #{articleType,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{foreword,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.kevin.blog.model.ArticleWithBLOBs">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mediaUrl != null">
+        media_url,
+      </if>
+      <if test="articleType != null">
+        article_type,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="foreword != null">
+        foreword,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaUrl != null">
+        #{mediaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="articleType != null">
+        #{articleType,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="foreword != null">
+        #{foreword,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="org.kevin.blog.model.Article">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="media_url" jdbcType="VARCHAR" property="mediaUrl" />
+    <result column="article_type" jdbcType="VARCHAR" property="articleType" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="delete_flag" jdbcType="BIT" property="deleteFlag" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.kevin.blog.model.ArticleWithBLOBs">
+    <result column="foreword" jdbcType="LONGVARCHAR" property="foreword" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    foreword, content
+  </sql>
+  <insert id="insert" parameterType="org.kevin.blog.model.ArticleWithBLOBs">
+    insert into article (id, media_url, article_type, 
+      note, delete_flag, create_time, 
+      update_time, foreword, content
+      )
+    values (#{id,jdbcType=VARCHAR}, #{mediaUrl,jdbcType=VARCHAR}, #{articleType,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{foreword,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.kevin.blog.model.ArticleWithBLOBs">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mediaUrl != null">
+        media_url,
+      </if>
+      <if test="articleType != null">
+        article_type,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="foreword != null">
+        foreword,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaUrl != null">
+        #{mediaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="articleType != null">
+        #{articleType,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="foreword != null">
+        #{foreword,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="org.kevin.blog.model.Article">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="media_url" jdbcType="VARCHAR" property="mediaUrl" />
+    <result column="article_type" jdbcType="VARCHAR" property="articleType" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="delete_flag" jdbcType="BIT" property="deleteFlag" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.kevin.blog.model.ArticleWithBLOBs">
+    <result column="foreword" jdbcType="LONGVARCHAR" property="foreword" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    foreword, content
+  </sql>
+  <insert id="insert" parameterType="org.kevin.blog.model.ArticleWithBLOBs">
+    insert into article (id, media_url, article_type, 
+      note, delete_flag, create_time, 
+      update_time, foreword, content
+      )
+    values (#{id,jdbcType=VARCHAR}, #{mediaUrl,jdbcType=VARCHAR}, #{articleType,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{foreword,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.kevin.blog.model.ArticleWithBLOBs">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mediaUrl != null">
+        media_url,
+      </if>
+      <if test="articleType != null">
+        article_type,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="foreword != null">
+        foreword,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaUrl != null">
+        #{mediaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="articleType != null">
+        #{articleType,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="foreword != null">
+        #{foreword,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="org.kevin.blog.model.Article">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="media_url" jdbcType="VARCHAR" property="mediaUrl" />
+    <result column="article_type" jdbcType="VARCHAR" property="articleType" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="delete_flag" jdbcType="BIT" property="deleteFlag" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.kevin.blog.model.ArticleWithBLOBs">
+    <result column="foreword" jdbcType="LONGVARCHAR" property="foreword" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    foreword, content
+  </sql>
+  <insert id="insert" parameterType="org.kevin.blog.model.ArticleWithBLOBs">
+    insert into article (id, media_url, article_type, 
+      note, delete_flag, create_time, 
+      update_time, foreword, content
+      )
+    values (#{id,jdbcType=VARCHAR}, #{mediaUrl,jdbcType=VARCHAR}, #{articleType,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{foreword,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.kevin.blog.model.ArticleWithBLOBs">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mediaUrl != null">
+        media_url,
+      </if>
+      <if test="articleType != null">
+        article_type,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="foreword != null">
+        foreword,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaUrl != null">
+        #{mediaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="articleType != null">
+        #{articleType,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="foreword != null">
+        #{foreword,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
