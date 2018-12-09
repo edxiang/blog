@@ -13,6 +13,7 @@ spring:
       max-lifetime: 1200000  # is the maximum life time in milliseconds of a connection in pool after it is closed.
       auto-commit: true  # configures the default auto-commit behavior of connections returned from pool. Default value is true.
 
+
 #  cache:
 #    type: redis
 #  redis:
@@ -35,13 +36,15 @@ spring:
     enabled: true
     encoding: UTF-8
     mode: HTML
-    prefix: calsspath:/templates/
+    prefix: classpath:/templates/
     suffix: .html
     servlet:
       content-type: text/html
       produce-partial-output-while-processing: true
+  resources:
+    static-locations: /META_INF/resources/, classpath:/resources/, classpath:/static/,classpath:/public/
 
-#file upload
+  #file upload
   servlet:
     multipart:
       enabled: true
@@ -49,3 +52,7 @@ spring:
       max-file-size: 32MB
       max-request-size: 128MB
       resolve-lazily: false
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: org.kevin.blog.model  # 注意：对应实体类的路径

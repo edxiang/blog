@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../static/icon/favicon.ico" th:href="@{icon/favicon.ico}">
+
+    <title>Kevin's blog</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!--<link href="../static/css/google-fonts.css" th:href="@{css/google-fonts.css}" rel="stylesheet">-->
+    <link href="../static/css/blog.css" th:href="@{css/blog.css}" rel="stylesheet">
+
+    <style>
+        .ck-editor__editable {
+            min-height: 500px;
+            border-radius: .25rem;
+        }
+        @font-face {
+            font-family: "snellbt-bold";
+            src: url("/fonts/snellbt-bold.otf");
+        }
+        .ownFont{
+            /*font-family: "Snell Roundhand";*/
+            font-family: "snellbt-bold";
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-12 text-center">
+                <div class="blog-header-logo text-dark ownFont" href="#">New Article</div>
+            </div>
+        </div>
+    </header>
+
+    <form id="newArticleForm">
+        <div class="form-group">
+            <div class="col-6" style="margin-top: 5px; margin-bottom:10px">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="title" placeholder="title" autofocus="autofocus"/>
+                    &nbsp;
+                    <div class="input-group-append">
+                        <select class="custom-control-inline btn-info" id="inlineFormCustomSelect" name="articleType">
+                            <option th:value="${type.value}" th:each="type:${articleTypes}"
+                                    th:text="${type.type}">Article Type</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-9">
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" name="foreword" style="resize: none;" placeholder="foreword"></textarea>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-group">
+                    <textarea name="content" id="editor5" placeholder="type here"></textarea>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <p>
+                    <button type="submmit" class="btn btn-lg btn-primary">done</button>
+                </p>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../static/js/jquery-3.3.1.min.js" th:src="@{js/jquery-3.3.1.min.js}"></script>
+<script src="../static/js/vendor/popper.min.js" th:src="@{js/vendor/popper.min.js}"></script>
+<script src="../static/js/bootstrap.min.js" th:src="@{js/bootstrap.min.js}"></script>
+<script src="../static/js/vendor/holder.min.js" th:src="@{js/vendor/holder.min.js}"></script>
+<script src="../static/plugins/ckeditor.js" th:src="@{plugins/ckeditor.js}"></script>
+<script>
+    var myEditor = null;
+    $(function () {
+        ClassicEditor.create(document.querySelector("#editor5")).
+        then(editor => {
+            myEditor = editor;
+    }).
+        catch(error =>{
+            console.error(error);
+    });
+
+        $("#newArticleForm").submit(function(){
+           var formData = $("#newArticleForm").serialize();
+           console.log(formData);
+           $.ajax({
+               url: "/saveArticle",
+               type: "post",
+               data: formData,
+               success:function(data){
+                   if(data == '200')
+                       alert("YES!");
+               },
+               error: function(){
+                   alert("NO!");
+               }
+           });
+           return false;
+        });
+    });
+</script>
+
+<script>
+    Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+    });
+</script>
+</body>
+</html>

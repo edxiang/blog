@@ -7,6 +7,8 @@ public class Article {
 
     private String mediaUrl;
 
+    private String title;
+
     private String articleType;
 
     private String note;
@@ -31,6 +33,14 @@ public class Article {
 
     public void setMediaUrl(String mediaUrl) {
         this.mediaUrl = mediaUrl == null ? null : mediaUrl.trim();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getArticleType() {
