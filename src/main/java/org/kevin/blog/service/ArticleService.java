@@ -1,5 +1,6 @@
 package org.kevin.blog.service;
 
+import com.github.pagehelper.PageInfo;
 import org.kevin.blog.model.Article;
 import org.kevin.blog.model.ArticleWithBLOBs;
 
@@ -14,9 +15,9 @@ public interface ArticleService {
 
     int insertSelective(ArticleWithBLOBs record);
 
-    List<ArticleWithBLOBs> findList();
+    List<ArticleWithBLOBs> findList(Integer limit);
 
-    List<ArticleWithBLOBs> list(Article record, int pageNum, int pageSize);
+    PageInfo<ArticleWithBLOBs> list(ArticleWithBLOBs record, int pageNum, int pageSize);
 
     ArticleWithBLOBs selectByPrimaryKey(String id);
 

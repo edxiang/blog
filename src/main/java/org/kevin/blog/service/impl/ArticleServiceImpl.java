@@ -1,12 +1,18 @@
 package org.kevin.blog.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.kevin.blog.common.ResultCode;
+import org.kevin.blog.common.util.CommonUtils;
 import org.kevin.blog.mapper.ArticleMapper;
 import org.kevin.blog.model.Article;
 import org.kevin.blog.model.ArticleWithBLOBs;
 import org.kevin.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,17 +31,27 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public int insertSelective(ArticleWithBLOBs record) {
-        return articleMapper.insertSelective(record);
+        record.setId(CommonUtils.getUUID32());
+        record.setCreateTime(new Date());
+        record.setUpdateTime(new Date());
+        record.setDeleteFlag(false);
+        record.setForeword(CommonUtils.replaceLineCharacter(record.getForeword()));
+        if(articleMapper.insertSelective(record) > 0)
+            return ResultCode.SUCCESS.getCode();
+
+        return ResultCode.FAIL.getCode();
     }
 
     @Override
-    public List<ArticleWithBLOBs> findList() {
-        return articleMapper.findList();
+    public List<ArticleWithBLOBs> findList(Integer limit) {
+        return articleMapper.findList(limit);
     }
 
     @Override
-    public List<ArticleWithBLOBs> list(Article record, int pageNum, int pageSize) {
-        return null;
+    public PageInfo<ArticleWithBLOBs> list(ArticleWithBLOBs record, int pageNum, int pageSize) {
+        PageInfo<ArticleWithBLOBs> page = PageHelper.startPage(pageNum,pageSize).setOrderBy("create_time desc")
+                .doSelectPageInfo(() -> articleMapper.selectByCondition(record));
+        return page;
     }
 
     @Override

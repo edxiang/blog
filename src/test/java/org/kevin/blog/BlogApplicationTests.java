@@ -1,9 +1,13 @@
 package org.kevin.blog;
 
+import com.github.pagehelper.PageInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kevin.blog.common.util.CommonUtils;
+import org.kevin.blog.model.Article;
 import org.kevin.blog.model.ArticleType;
+import org.kevin.blog.model.ArticleWithBLOBs;
+import org.kevin.blog.service.ArticleService;
 import org.kevin.blog.service.ArticleTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,12 +20,15 @@ import java.util.List;
 @SpringBootTest
 public class BlogApplicationTests {
 
+	@Autowired
+	private ArticleTypeService articleTypeService;
+	@Autowired
+	private ArticleService articleService;
+
 	@Test
 	public void contextLoads() {
 	}
 
-	@Autowired
-	private ArticleTypeService articleTypeService;
 
 	@Test
 	public void insertArticleType(){
@@ -30,5 +37,11 @@ public class BlogApplicationTests {
 
 		List<ArticleType> list = articleTypeService.findList();
 		System.out.println(list.size());
+	}
+
+	@Test
+	public void listArticle(){
+		PageInfo<ArticleWithBLOBs> page = articleService.list(new ArticleWithBLOBs(),2,1);
+		System.out.println("hw");
 	}
 }

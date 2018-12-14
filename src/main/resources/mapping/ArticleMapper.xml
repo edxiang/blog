@@ -5,7 +5,7 @@
     <result column="id" jdbcType="VARCHAR" property="id" />
     <result column="media_url" jdbcType="VARCHAR" property="mediaUrl" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="article_type" jdbcType="VARCHAR" property="articleType" />
+    <result column="article_type" jdbcType="INTEGER" property="articleType" />
     <result column="note" jdbcType="VARCHAR" property="note" />
     <result column="delete_flag" jdbcType="BIT" property="deleteFlag" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -15,8 +15,11 @@
     <result column="foreword" jdbcType="LONGVARCHAR" property="foreword" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
+  <sql id="Base_Column_List">
+    id, media_url, title, article_type, note, delete_flag, create_time, update_time, foreword, content
+  </sql>
   <sql id="Blob_Column_List">
-    foreword, content
+    foreword,content
   </sql>
   <insert id="insert" parameterType="org.kevin.blog.model.ArticleWithBLOBs">
     insert into article (id, media_url, title, article_type,
@@ -24,7 +27,7 @@
       update_time, foreword, content
       )
     values (#{id,jdbcType=VARCHAR}, #{mediaUrl,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},
-     #{articleType,jdbcType=VARCHAR},
+     #{articleType,jdbcType=INTEGER},
       #{note,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{foreword,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}
       )
@@ -74,7 +77,7 @@
         #{title,jdbcType=VARCHAR},
       </if>
       <if test="articleType != null">
-        #{articleType,jdbcType=VARCHAR},
+        #{articleType,jdbcType=INTEGER},
       </if>
       <if test="note != null">
         #{note,jdbcType=VARCHAR},
@@ -97,14 +100,38 @@
     </trim>
   </insert>
 
-  <select id="findList" resultMap="ResultMapWithBLOBs">
-    SELECT *
+  <select id="findList" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+    SELECT
+      <include refid="Base_Column_List"/>
     FROM article
-    WHERE delete_flag = 0 ORDER BY create_time DESC
+    WHERE delete_flag = 0
+      ORDER BY create_time DESC
+      <if test="_parameter != null">
+        LIMIT #{limit}
+      </if>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+    SELECT
+      <include refid="Base_Column_List" />
+    FROM article
+    WHERE id=#{id,jdbcType=VARCHAR}
   </select>
 
   <select id="selectByCondition" resultMap="ResultMapWithBLOBs">
-
+    SELECT
+      <include refid="Base_Column_List" />
+    FROM article
+    WHERE delete_flag = 0
+      <if test="articleType != null">
+        AND article_type = #{articleType,jdbcType=INTEGER}
+      </if>
+    <if test="content != null">
+      AND content like concat("%",#{content},"%")
+    </if>
+    <if test="note != null">
+      AND note like concat("%",#{content},"%")
+    </if>
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="org.kevin.blog.model.ArticleWithBLOBs">
@@ -153,7 +180,7 @@
           #{title,jdbcType=VARCHAR},
         </if>
         <if test="articleType != null">
-          #{articleType,jdbcType=VARCHAR},
+          #{articleType,jdbcType=INTEGER},
         </if>
         <if test="note != null">
           #{note,jdbcType=VARCHAR},

@@ -1,5 +1,6 @@
 package org.kevin.blog.controller;
 
+import org.kevin.blog.common.ResultCode;
 import org.kevin.blog.common.util.CommonUtils;
 import org.kevin.blog.model.Article;
 import org.kevin.blog.model.ArticleWithBLOBs;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Date;
 
 /**
  * @author Kevin.Z
@@ -24,14 +23,7 @@ public class SaveController {
 
     @RequestMapping(value = "/saveArticle", method = RequestMethod.POST)
     @ResponseBody
-    public String saveArticle(ArticleWithBLOBs article){
-        article.setId(CommonUtils.getUUID32());
-        article.setCreateTime(new Date());
-        article.setUpdateTime(new Date());
-        article.setDeleteFlag(false);
-
-        articleService.insertSelective(article);
-        System.out.println("hello");
-        return "200";
+    public int saveArticle(ArticleWithBLOBs article){
+        return articleService.insertSelective(article);
     }
 }

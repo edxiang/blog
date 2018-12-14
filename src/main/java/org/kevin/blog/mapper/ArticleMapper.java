@@ -12,9 +12,9 @@ public interface ArticleMapper {
 
     int insertSelective(ArticleWithBLOBs record);
 
-    List<ArticleWithBLOBs> findList();
+    List<ArticleWithBLOBs> findList(Integer limit);
 
-    List<ArticleWithBLOBs> selectByCondition(Article record);
+    List<ArticleWithBLOBs> selectByCondition(ArticleWithBLOBs record);
 
     ArticleWithBLOBs selectByPrimaryKey(String id);
 

@@ -9,7 +9,7 @@ public class Article {
 
     private String title;
 
-    private String articleType;
+    private Integer articleType;
 
     private String note;
 
@@ -43,12 +43,12 @@ public class Article {
         this.title = title;
     }
 
-    public String getArticleType() {
+    public Integer getArticleType() {
         return articleType;
     }
 
-    public void setArticleType(String articleType) {
-        this.articleType = articleType == null ? null : articleType.trim();
+    public void setArticleType(Integer articleType) {
+        this.articleType = articleType;
     }
 
     public String getNote() {

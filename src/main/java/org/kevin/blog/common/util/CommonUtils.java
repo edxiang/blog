@@ -11,4 +11,8 @@ public class CommonUtils {
     public static String getUUID32(){
         return UUID.randomUUID().toString().replace("-","").toLowerCase();
     }
+
+    public static String replaceLineCharacter(String text) {
+        return text.replaceAll("\\r\\n", "<br/>");
+    }
 }
