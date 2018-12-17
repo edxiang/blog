@@ -1,107 +1,153 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../static/icon/favicon.ico" th:href="@{icon/favicon.ico}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../static/icon/favicon.ico" th:href="@{icon/favicon.ico}">
 
-    <title>Kevin's blog</title>
+  <title>Kevin's blog</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../static/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="../static/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="../static/css/google-fonts.css" th:href="@{css/google-fonts.css}" rel="stylesheet">
-    <link href="../static/css/blog.css" th:href="@{css/blog.css}" rel="stylesheet">
-  </head>
+  <!-- Custom styles for this template -->
+  <link href="../static/css/google-fonts.css" th:href="@{css/google-fonts.css}" rel="stylesheet">
+  <link href="../static/css/blog.css" th:href="@{css/blog.css}" rel="stylesheet">
+</head>
 
-  <body>
+<body>
 
-    <div class="container">
-      <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-          <div class="col-4 pt-1">
-          </div>
-          <div class="col-4 text-center">
-            <div class="blog-header-logo text-dark" href="#">Xiaoxiang</div>
-          </div>
-          <div class="col-4 d-flex justify-content-end align-items-center">
-            <a class="text-muted" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg>
-            </a>
-            <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
-          </div>
-        </div>
-      </header>
-
-      <div class="nav-scroller py-1 mb-2">
-        <nav class="nav d-flex justify-content-between">
-          <a class="p-2 text-muted" th:data="${type.value}" th:each="type:${articleTypes}" th:text="${type.type}"
-            onclick="selectByType(this)" href="#">article type</a>
-          <a class="p-2" href="/secretMoment" style="color: red;">SecretMoment</a>
-        </nav>
+<div class="container">
+  <header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-4 pt-1">
       </div>
-
-      <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
-        <div class="col-md-8 px-0">
-          <h1 class="display-8 font-italic">Title of a longer featured blog post</h1>
-          <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.</p>
-          <p class="lead mb-0 font-weight-bold"><a href="/newArticle" class="text-white font-weight-bold">New...</a></p>
-        </div>
+      <div class="col-4 text-center">
+        <div class="blog-header-logo text-dark" href="#">@K</div>
       </div>
+      <div class="col-4 d-flex justify-content-end align-items-center">
+        <a class="text-muted" href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3">
+            <circle cx="10.5" cy="10.5" r="7.5"></circle>
+            <line x1="21" y1="21" x2="15.8" y2="15.8"></line>
+          </svg>
+        </a>
+        <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+      </div>
+    </div>
+  </header>
 
-      <hr>
+  <div th:replace="~{fragments :: index}"></div>
 
-      <div class="row mb-2">
-        <div class="col-md-6" th:each="article:${articles}">
-          <div class="card flex-md-row mb-4 shadow-sm h-md-250">
-            <div class="card-body d-flex flex-column align-items-start">
-              <strong class="d-inline-block mb-2 text-primary" th:text="${article.articleType}">World</strong>
-              <h3 class="mb-0">
-                <a class="text-dark" th:href="@{/article(id=${article.id})}" th:text="${article.title}">Featured post</a>
-              </h3>
-              <div class="mb-1 text-muted" th:text="${article.createTime}">Nov 12</div>
-              <p class="card-text mb-auto" th:text="${article.foreword}">
-                the article's foreword
-              </p>
-              <a th:href="@{/article(id=${article.id})}">Continue reading</a>
-            </div>
-          </div>
+  <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+    <div class="col-md-8 px-0">
+      <h1 class="display-8 font-italic">Title of a longer featured blog post</h1>
+      <p class="lead my-3">一个人只拥有此生此世是不够的，他还应该拥有诗意的世界。</p>
+      <p class="lead mb-0 font-weight-bold"><a href="/newArticle" class="text-white font-weight-bold">New...</a></p>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row mb-2">
+    <div class="col-md-6" th:each="article:${articles}">
+      <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+        <div class="card-body d-flex flex-column align-items-start">
+          <strong class="d-inline-block mb-2" th:text="${article.articleType}">ArticleType</strong>
+          <h3 class="mb-0">
+            <a class="text-dark" th:href="@{/article(id=${article.id})}" th:text="${article.title}">Featured post</a>
+          </h3>
+          <div class="mb-1 text-muted" th:text="${article.createTime}">Nov 12</div>
+          <p class="card-text mb-auto" th:utext="${article.foreword}">
+            the article's foreword
+          </p>
+          <a th:href="@{/article(id=${article.id})}">Continue reading</a>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <footer class="blog-footer">
-      <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-      <p>
-        <a href="/index">Back to Home</a>
-      </p>
-    </footer>
+<footer class="blog-footer">
+  <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a
+      href="https://twitter.com/mdo">@mdo</a>.</p>
+  <p>
+    <a href="/index">Back to Home</a>
+  </p>
+</footer>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../static/js/jquery-3.3.1.min.js" th:src="@{js/jquery-3.3.1.min.js}"></script>
-    <script src="../static/js/vendor/popper.min.js" th:src="@{js/vendor/popper.min.js}"></script>
-    <script src="../static/js/bootstrap.min.js" th:src="@{js/bootstrap.min.js}"></script>
-    <script src="../static/js/vendor/holder.min.js" th:src="@{js/vendor/holder.min.js}"></script>
-    <script src="../static/plugins/jquery.loadTemplate-1.4.4.min.js" th:src="@{plugins/jquery.loadTemplate-1.4.4.min.js}"></script>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../static/js/jquery-3.3.1.min.js" th:src="@{js/jquery-3.3.1.min.js}"></script>
+<script src="../static/js/vendor/popper.min.js" th:src="@{js/vendor/popper.min.js}"></script>
+<script src="../static/js/bootstrap.min.js" th:src="@{js/bootstrap.min.js}"></script>
+<script src="../static/js/vendor/holder.min.js" th:src="@{js/vendor/holder.min.js}"></script>
+<script src="../static/plugins/jquery.loadTemplate-1.4.4.min.js"
+        th:src="@{plugins/jquery.loadTemplate-1.4.4.min.js}"></script>
 
-    <script>
-      Holder.addTheme('thumb', {
+<script>
+    Holder.addTheme('thumb', {
         bg: '#55595c',
         fg: '#eceeef',
         text: 'Thumbnail'
-      });
-    </script>
+    });
+</script>
 
-  <script>
-    function selectByType(obj){
+<script>
+    function selectByType(obj) {
         var x = $(obj);
         alert(x.attr("data"));
     }
-  </script>
-  </body>
+
+    $(function () {
+        var articleTypes = $(".d-inline-block");
+        for (var i = 0; i < articleTypes.length; i++) {
+            var jqObj = $(articleTypes[i]);
+            var value = parseInt(jqObj.text());
+            console.log("_" + value + "_");
+            switch (value) {
+                case 0:
+                    jqObj.text("Whatever");
+                    jqObj.addClass("text-primary");
+                    break;
+                case 1:
+                    jqObj.text("Opinion");
+                    jqObj.addClass("text-danger");
+                    break;
+                case 2:
+                    jqObj.text("Movies&Books");
+                    jqObj.addClass("text-dark");
+                    break;
+                case 3:
+                    jqObj.text("Animals&Plants");
+                    jqObj.addClass("text-success");
+                    break;
+                case 4:
+                    jqObj.text("EnglishLearning");
+                    jqObj.addClass("text-warning");
+                    break;
+                case 5:
+                    jqObj.text("Health");
+                    jqObj.addClass("text-success");
+                    break;
+                case 6:
+                    jqObj.text("Design");
+                    jqObj.addClass("text-info");
+                    break;
+                case 7:
+                    jqObj.text("Travel");
+                    jqObj.addClass("text-secondary");
+                    break;
+                default:
+                    jqObj.text("没有标签……");
+                    jqObj.addClass("text-link");
+            }
+        }
+    });
+</script>
+</body>
 </html>

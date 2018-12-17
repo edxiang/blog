@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
+    <!--mvn mybatis-generator:generate-->
     <!-- 数据库驱动:选择你的本地硬盘上面的数据库驱动包-->
     <classPathEntry location="/Users/xiaoxiang/.m2/repository/mysql/mysql-connector-java/8.0.13/mysql-connector-java-8.0.13.jar"/>
     <context id="mariaDB2Tables" targetRuntime="MyBatis3">
@@ -13,9 +14,9 @@
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://144.34.242.178:3306/myblog"
+                        connectionURL="jdbc:mysql://localhost:3306/myblog"
                         userId="root"
-                        password="rootroot">
+                        password="root">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
@@ -37,22 +38,8 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <table tableName="article_type"
-               domainObjectName="ArticleType"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
-        <table tableName="article"
-               domainObjectName="Article"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
-        <table tableName="secret_moment"
-               domainObjectName="SecretMoment"
+        <table tableName="alert_wall"
+               domainObjectName="AlertWall"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

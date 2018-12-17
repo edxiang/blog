@@ -196,5 +196,6 @@
         </if>
       </trim>
     </set>
+    WHERE id=#{id,jdbcType=VARCHAR}
   </update>
 </mapper>

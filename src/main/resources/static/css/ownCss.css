@@ -1,0 +1,15 @@
+.ck-editor__editable {
+    min-height: 550px;
+    border-radius: .25rem;
+}
+
+@font-face {
+    font-family: "snellbt-bold";
+    src: url("../fonts/snellbt-bold.otf");
+}
+
+.ownFont {
+    /*font-family: "Snell Roundhand";*/
+    font-family: "snellbt-bold";
+    font-size: 2rem;
+}
