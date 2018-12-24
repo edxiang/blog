@@ -1,12 +1,11 @@
 package org.kevin.blog.controller;
 
-import org.kevin.blog.model.AlertWall;
-import org.kevin.blog.model.Article;
-import org.kevin.blog.model.ArticleType;
-import org.kevin.blog.model.ArticleWithBLOBs;
+import com.github.pagehelper.PageInfo;
+import org.kevin.blog.model.*;
 import org.kevin.blog.service.AlertWallService;
 import org.kevin.blog.service.ArticleService;
 import org.kevin.blog.service.ArticleTypeService;
+import org.kevin.blog.service.SecretMomentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -31,10 +30,12 @@ public class MainController {
     private ArticleService articleService;
     @Autowired
     private AlertWallService alertWallService;
+    @Autowired
+    private SecretMomentService secretMomentService;
 
     @RequestMapping({"/", "", "/index"})
     public String index(ModelMap modelMap) {
-        List<ArticleWithBLOBs> articles = articleService.findList(4);
+        List<ArticleWithBLOBs> articles = articleService.findList(8);
         modelMap.addAttribute("articles", articles);
         return "index";
     }
@@ -56,10 +57,40 @@ public class MainController {
         return "blog";
     }
 
+    @RequestMapping("/secretMoment")
+    public String secretMoment(@RequestParam(value = "pageNum", required = false) Integer pageNum,
+                               @RequestParam(value = "pageSize", required = false) Integer pageSize,
+                               ModelMap modelMap) {
+        SecretMoment secretMoment = null;
+        pageNum = pageNum == null ? 1 : pageNum;
+        pageSize = pageSize == null ? 10 : pageSize;
+        PageInfo<SecretMoment> pageInfo = secretMomentService.selectByCondition(secretMoment, pageNum, pageSize);
+
+        modelMap.addAttribute("pageInfo", pageInfo);
+        modelMap.addAttribute("secretMoments", pageInfo.getList());
+        return "secretMoment";
+    }
+
     @RequestMapping("/blogExample")
     public String blogExample() {
         return "blog-example";
     }
 
+    @RequestMapping("/articles")
+    public String articles(@RequestParam("articleType") Integer type,
+                           @RequestParam(value = "pageNum", required = false) Integer pageNum,
+                           @RequestParam(value = "pageSize", required = false) Integer pageSize,
+                           ModelMap modelMap) {
+        ArticleWithBLOBs record = new ArticleWithBLOBs();
+        record.setArticleType(type);
+        pageNum = pageNum == null ? 1 : pageNum;
+        pageSize = pageSize == null ? 10 : pageSize;
+        PageInfo<ArticleWithBLOBs> pageInfo = articleService.list(record, pageNum, pageSize);
 
+        modelMap.addAttribute("pageInfo", pageInfo);
+        modelMap.addAttribute("articles", pageInfo.getList());
+        modelMap.addAttribute("articleType", type);
+
+        return "blogWithType";
+    }
 }
