@@ -21,12 +21,15 @@ public class LoginController {
     public int login(@RequestParam(value = "username") String username,
                      @RequestParam(value = "password") String password) {
         Subject subject = SecurityUtils.getSubject();
+        // 判断是否已经登陆
+        //subject.isAuthenticated();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
             subject.login(token);
         } catch (AuthenticationException e) {
             token.clear();
             e.printStackTrace();
+            return 0;
         }
 
         return 1;

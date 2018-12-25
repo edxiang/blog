@@ -42,8 +42,10 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/plugins/**","anon");
         filterChainDefinitionMap.put("/index","anon");
         filterChainDefinitionMap.put("/article*","anon");
-        filterChainDefinitionMap.put("/secretMoment","anon");
         filterChainDefinitionMap.put("/signin","anon");
+        filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/","anon");
+
         filterChainDefinitionMap.put("/**","authc");
 
         shiroFilterFactoryBean.setLoginUrl("/signin");
