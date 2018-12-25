@@ -44,10 +44,10 @@
   </div>
 
   <nav class="blog-pagination">
-    <a class="btn btn-outline-secondary disabled" th:unless="${pageInfo.isHasPreviousPage()}" href="javascript:void(0);">PreviousPage</a>
+    <!--<a class="btn btn-outline-secondary disabled" th:unless="${pageInfo.isHasPreviousPage()}" href="javascript:void(0);">PreviousPage</a>-->
     <a class="btn btn-outline-primary" th:if="${pageInfo.isHasPreviousPage()}" href="prePage"
       th:href="@{'/articles?articleType=' + ${articleType} + '&pageNum=' + ${pageInfo.getPrePage()}}">PreviousPage</a>
-    <a class="btn btn-outline-secondary disabled" th:unless="${pageInfo.isHasNextPage()}" href="javascript:void(0);">NextPage</a>
+    <!--<a class="btn btn-outline-secondary disabled" th:unless="${pageInfo.isHasNextPage()}" href="javascript:void(0);">NextPage</a>-->
     <a class="btn btn-outline-primary" th:if="${pageInfo.isHasNextPage()}" href="nexPage"
        th:href="@{'/articles?articleType=' + ${articleType} + '&pageNum=' + ${pageInfo.getNextPage()}}">NextPage</a>
   </nav>

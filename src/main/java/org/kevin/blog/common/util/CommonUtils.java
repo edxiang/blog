@@ -13,6 +13,6 @@ public class CommonUtils {
     }
 
     public static String replaceLineCharacter(String text) {
-        return text.replaceAll("\\r\\n", "<br/>");
+        return text.replaceAll("[\\r\\n]", "<br/>");
     }
 }

@@ -25,14 +25,21 @@
   <nav class="nav d-flex justify-content-between">
     <a class="p-2 text-muted" th:data="${type.value}" th:each="type:${application.articleTypes}" th:text="${type.type}"
        onclick="selectArticleType(this)" href="#">article type</a>
-    <a class="p-2" href="/secretMoment" style="color: red;">SecretMoment</a>
+    <a class="p-2 text-danger" href="/secretMoment">SecretMoment</a>
   </nav>
 </div>
 
 <div class="jumbotron p-3 p-md-4 text-white rounded bg-info" th:fragment="basicInfoPanel">
   <div class="col-md-11 px-0">
-    <p class="lead my-3 ownFont" th:text="${application.alertWall.content}">alert wall</p>
-    <p class=" mb-0"><a href="#" class="text-white" th:href="${application.alertWall.url}">...</a></p>
+    <p class="lead my-3 ownFont font20" th:text="${application.blogWall.content}">alert wall</p>
+    <p class=" mb-0"><a href="#" class="text-white" th:href="${application.blogWall.url}">...</a></p>
+  </div>
+</div>
+
+<div class="jumbotron p-3 p-md-4 text-secondary rounded bg-light" th:fragment="secretMomentInfoPanel">
+  <div class="col-md-11 px-0">
+    <p class="lead my-3 ownFont font20" th:text="${application.secretMomentWall.content}">alert wall</p>
+    <p class=" mb-0"><a href="#" class="text-secondary" th:href="${application.secretMomentWall.url}">...</a></p>
   </div>
 </div>
 

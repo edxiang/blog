@@ -34,8 +34,11 @@ public class InitializeProject implements InitializingBean, ApplicationContextAw
         List<ArticleType> articleTypes = articleTypeService.findList();
         sc.setAttribute("articleTypes", articleTypes);
 
-        AlertWall aw = alertWallService.selectByType(1);
-        sc.setAttribute("alertWall", aw);
+        AlertWall blogWall = alertWallService.selectByType(1);
+        sc.setAttribute("blogWall", blogWall);
+
+        AlertWall secretMomentWall = alertWallService.selectByType(2);
+        sc.setAttribute("secretMomentWall",secretMomentWall);
     }
 
     @Override
