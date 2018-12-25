@@ -29,8 +29,6 @@ public class MainController {
     @Autowired
     private ArticleService articleService;
     @Autowired
-    private AlertWallService alertWallService;
-    @Autowired
     private SecretMomentService secretMomentService;
 
     @RequestMapping({"/", "", "/index"})
@@ -38,6 +36,11 @@ public class MainController {
         List<ArticleWithBLOBs> articles = articleService.findList(8);
         modelMap.addAttribute("articles", articles);
         return "index";
+    }
+
+    @RequestMapping("/signin")
+    public String signin(ModelMap modelMap) {
+        return "signin";
     }
 
     @RequestMapping("/newArticle")
