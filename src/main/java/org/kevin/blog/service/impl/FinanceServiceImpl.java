@@ -9,7 +9,6 @@ import org.kevin.blog.service.FinanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.ws.ServiceMode;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class FinanceServiceImpl implements FinanceService {
     @Override
     public int insert(Finance record) {
         record.setId(CommonUtils.getUUID32());
-        record.setTime(new Date());
+        record.setCreateTime(new Date());
         return financeMapper.insert(record);
     }
 

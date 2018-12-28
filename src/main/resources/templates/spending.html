@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="../static/assets/icon/favicon.ico" th:href="@{assets/icon/favicon.ico}">
+  <link rel="icon" href="../static/assets/icon/favicon.ico" th:href="@{assets/icon/hp.ico}">
 
   <title>Kevin's blog</title>
 
@@ -13,7 +13,6 @@
   <link href="../static/assets/css/bootstrap.min.css" th:href="@{assets/css/bootstrap.min.css}" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
   <link href="../static/assets/css/blog.css" th:href="@{assets/css/blog.css}" rel="stylesheet">
   <link href="../static/assets/css/myCSS.css" th:href="@{assets/css/myCSS.css}" rel="stylesheet"/>
   <link href="../static/assets/css/datatables.min.css" th:href="@{assets/css/datatables.min.css}" rel="stylesheet"/>
@@ -23,50 +22,42 @@
 
 <div class="container">
   <header th:replace="~{fragments :: header}"></header>
-  <!--<div th:replace="~{fragments :: index}"></div>-->
   <div th:replace="~{fragments :: secretMomentInfoPanel}"></div>
 </div>
 
 <main role="main" class="container">
   <div class="modal-header">
-    <h1>Secret Moment</h1>
-    <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#addSecretMoment">
-      ADD
+    <h1>Financial Management</h1>
+    <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#addSpending">
+      spend
     </button>
   </div>
 
-  <div class="row">
-    <div class="col-10" th:each="moment:${secretMoments}">
-      <div class="alert alert-info myFont font10" role="alert">
-        <p class="mb-0" th:utext="${moment.moment}">secret moment</p>
-        <p class="alert-heading font-weight-bold float-right" th:utext="${moment.createTime}">secret moment header</p>
-      </div>
-    </div>
-  </div><!-- /.row -->
+  <table id="spendingTable" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>COST</th>
+        <th>FOR_WHAT</th>
+        <th>TIME</th>
+      </tr>
+    </thead>
+  </table>
 
-  <hr>
-
-  <nav class="blog-pagination">
-    <a class="btn btn-outline-secondary disabled" th:unless="${pageInfo.isHasPreviousPage()}" href="javascript:void(0);">PreviousPage</a>
-    <a class="btn btn-outline-primary" th:if="${pageInfo.isHasPreviousPage()}" href="prePage"
-       th:href="@{'/secretMoment?pageNum=' + ${pageInfo.getPrePage()}}">PreviousPage</a>
-    <a class="btn btn-outline-secondary disabled" th:unless="${pageInfo.isHasNextPage()}" href="javascript:void(0);">NextPage</a>
-    <a class="btn btn-outline-primary" th:if="${pageInfo.isHasNextPage()}" href="nexPage"
-       th:href="@{'/secretMoment?pageNum=' + ${pageInfo.getNextPage()}}">NextPage</a>
-  </nav>
-
-</main><!-- /.container -->
+</main>
 
 <!-- Modal -->
-<div class="modal fade" id="addSecretMoment" tabindex="-1">
+<div class="modal fade" id="addSpending" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        <textarea class="form-control" id="secretMomentContent" rows="7"></textarea>
+        <form id="spendingForm">
+          <input type="text" class="form-control col-5" id="cost" placeholder="cost"/>
+          <textarea class="form-control col-10" id="forWhat" rows="3"></textarea>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCancel">Close</button>
-        <button type="button" class="btn btn-primary" id="btnSave">Save</button>
+        <button type="button" class="btn btn-primary" id="btnSave">Submit</button>
       </div>
     </div>
   </div>
@@ -75,36 +66,81 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="../static/assets/js/jquery-3.3.1.min.js" th:src="@{assets/js/jquery-3.3.1.min.js}"></script>
+<!--<script src="../static/assets/plugins/jquery-3.3.1.min.js" th:src="@{assets/plugins/jquery-3.3.1.min.js}"></script>-->
+<script src="../static/assets/js/jquery-3.3.1.js" th:src="@{assets/js/jquery-3.3.1.js}"></script>
+
 <script src="../static/assets/js/vendor/popper.min.js" th:src="@{assets/js/vendor/popper.min.js}"></script>
 <script src="../static/assets/js/bootstrap.min.js" th:src="@{assets/js/bootstrap.min.js}"></script>
 <script src="../static/assets/js/vendor/holder.min.js" th:src="@{assets/js/vendor/holder.min.js}"></script>
 <script src="../static/assets/js/myJS.js" th:src="@{assets/js/myJS.js}"></script>
 <script src="../static/assets/plugins/datatables.min.js" th:src="@{assets/plugins/datatables.min.js}"></script>
 <script>
-    Holder.addTheme('thumb', {
-        bg: '#55595c',
-        fg: '#eceeef',
-        text: 'Thumbnail'
+  $(function () {
+    $("#spendingTable").DataTable({
+      processing: false,
+      serverSide: true,
+      lengthChange: false,
+      pageLength: 13,
+      ordering: false,
+      paging: true,
+      pagingType: "first_last_numbers",
+      searching: false,
+      stateSave: false,
+      autoWidth: true,
+      ajax: {
+        url: "/spending/list",
+        type: 'post'
+      },
+      columns: [
+        {data: "cost"},
+        {data: "forWhat"},
+        {
+          // data:"createTime"
+          "data":"createTime",
+          render: function (data) {
+            let recordTime = new Date(data);
+            return recordTime.getFullYear() + "-" + recordTime.getMonth() + "-" + recordTime.getDay()
+                + " " + recordTime.getHours() + ":" + recordTime.getMinutes() + ":" + recordTime.getSeconds();
+          }
+        }
+      ]
     });
+  });
 
-    $("#btnCancel").on('click', function () {
-        $("#secretMomentContent").val("");
+  $("#btnTest").on('click', function () {
+    $.ajax({
+      url: "/spending/list",
+      type: "post",
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (data) {
+        console.log("wrong");
+      }
     });
-    $("#btnSave").on('click', function () {
-        $.ajax({
-            url: "/saveSecretMoment",
-            type: "post",
-            data: {content: $("#secretMomentContent").val()},
-            success: function(data){
-                if(data == '1')
-                    location.reload();
-            },
-            error: function(data){
-                console.log("got wrong.");
-            }
-        });
+  });
+
+  $("#btnCancel").on('click', function () {
+    $("#spendingForm")[0].reset();
+  });
+
+  $("#btnSave").on('click', function () {
+    $.ajax({
+      url: "/saveSpending",
+      type: "post",
+      data: {
+        cost: $("#cost").val(),
+        forWhat: $("#forWhat").val()
+      },
+      success: function (data) {
+        if (data == '1')
+          location.reload();
+      },
+      error: function (data) {
+        console.log("got wrong.");
+      }
     });
+  });
 </script>
 </body>
 </html>

@@ -1,7 +1,9 @@
 package org.kevin.blog.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import org.kevin.blog.model.Finance;
+import org.kevin.blog.model.dto.DataTables;
 import org.kevin.blog.service.FinanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Kevin.Z
@@ -25,13 +29,20 @@ public class SpendingController {
         return "spending";
     }
 
-    @RequestMapping(value = "list", method = RequestMethod.POST)
+    @RequestMapping(value = "/spending/list", method = RequestMethod.POST)
     @ResponseBody
-    public PageInfo<Finance> list(@RequestParam(value = "pageNum", required = false) Integer pageNum,
-                                  @RequestParam(value = "pageSize", required = false) Integer pageSize) {
-        Finance record = null;
-        pageNum = pageNum == null ? 1 : pageNum;
-        pageSize = pageSize == null ? 10 : pageSize;
-        return financeService.list(record,pageNum,pageSize);
+    public String list(HttpServletRequest request) {
+        int start = Integer.parseInt(request.getParameter("start"));
+        int length = Integer.parseInt(request.getParameter("length"));
+        int draw = Integer.parseInt(request.getParameter("draw"));
+
+        PageInfo<Finance> pageInfo = financeService.list(null,start/length + 1,length);
+
+        DataTables dt = new DataTables();
+        dt.setRecordsTotal((int)pageInfo.getTotal());
+        dt.setRecordsFiltered((int)pageInfo.getTotal());
+        dt.setDraw(draw);
+        dt.setData(pageInfo.getList());
+        return JSON.toJSONString(dt);
     }
 }

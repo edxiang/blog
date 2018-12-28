@@ -116,7 +116,6 @@
     });
 
         $("#newArticleForm").submit(function(){
-            // 是否需要做判断呢？当内容为空的时候报错呢？ 12-14
            var formData = $("#newArticleForm").serialize();
            $.ajax({
                url: "/saveArticle",

@@ -9,7 +9,7 @@ public class Finance {
 
     private String forWhat;
 
-    private Date time;
+    private Date createTime;
 
     public String getId() {
         return id;
@@ -35,11 +35,11 @@ public class Finance {
         this.forWhat = forWhat == null ? null : forWhat.trim();
     }
 
-    public Date getTime() {
-        return time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }
