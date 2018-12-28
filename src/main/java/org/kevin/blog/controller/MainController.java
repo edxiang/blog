@@ -29,6 +29,8 @@ public class MainController {
     @Autowired
     private ArticleService articleService;
     @Autowired
+    private AlertWallService alertWallService;
+    @Autowired
     private SecretMomentService secretMomentService;
 
     @RequestMapping({"/", "", "/index"})
@@ -72,6 +74,14 @@ public class MainController {
         modelMap.addAttribute("pageInfo", pageInfo);
         modelMap.addAttribute("secretMoments", pageInfo.getList());
         return "secretMoment";
+    }
+
+    @RequestMapping("/alertWall")
+    public String alertWall(ModelMap modelMap){
+        List<AlertWall> alertWallList = alertWallService.findList();
+        modelMap.addAttribute("alertWallTypes",alertWallList);
+
+        return "alertWall";
     }
 
     @RequestMapping("/blogExample")

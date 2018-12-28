@@ -6,6 +6,9 @@ import org.kevin.blog.service.AlertWallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * @author Kevin.Z
  * @version 12/15/18
@@ -31,6 +34,12 @@ public class AlertWallServiceImpl implements AlertWallService {
     }
 
     @Override
+    public int updateByType(AlertWall record) {
+        record.setUpdateTime(new Date());
+        return alertWallMapper.updateByType(record);
+    }
+
+    @Override
     public int deleteByPrimaryKey(String id) {
         return alertWallMapper.deleteByPrimaryKey(id);
     }
@@ -38,5 +47,10 @@ public class AlertWallServiceImpl implements AlertWallService {
     @Override
     public AlertWall selectByType(Integer type) {
         return alertWallMapper.selectByType(type);
+    }
+
+    @Override
+    public List<AlertWall> findList() {
+        return alertWallMapper.findList();
     }
 }

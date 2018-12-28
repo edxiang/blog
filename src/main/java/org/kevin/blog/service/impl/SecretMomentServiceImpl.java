@@ -2,6 +2,7 @@ package org.kevin.blog.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.kevin.blog.common.util.CommonUtils;
 import org.kevin.blog.mapper.AlertWallMapper;
 import org.kevin.blog.mapper.SecretMomentMapper;
 import org.kevin.blog.model.AlertWall;
@@ -11,6 +12,7 @@ import org.kevin.blog.service.SecretMomentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +26,8 @@ public class SecretMomentServiceImpl implements SecretMomentService {
 
     @Override
     public int insert(SecretMoment record) {
+        record.setId(CommonUtils.getUUID32());
+        record.setCreateTime(new Date());
         return secretMomentMapper.insert(record);
     }
 

@@ -1,11 +1,11 @@
 spring:
   datasource:
-    url: jdbc:mysql://144.34.242.178:3306/myblog
-    username: root
-    password: rootroot
-#    url: jdbc:mysql://localhost:3306/myblog
+#    url: jdbc:mysql://144.34.242.178:3306/myblog
 #    username: root
-#    password: root
+#    password: rootroot
+    url: jdbc:mysql://localhost:3306/myblog
+    username: root
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver  #You often do not need to specify the driver-class-name, since Spring Boot can deduce it for most databases from the url.
     type: com.zaxxer.hikari.HikariDataSource
     hikari:

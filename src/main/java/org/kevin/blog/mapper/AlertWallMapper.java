@@ -2,6 +2,8 @@ package org.kevin.blog.mapper;
 
 import org.kevin.blog.model.AlertWall;
 
+import java.util.List;
+
 public interface AlertWallMapper {
     int insert(AlertWall record);
 
@@ -9,7 +11,11 @@ public interface AlertWallMapper {
 
     int updateByPrimaryKey(AlertWall record);
 
+    int updateByType(AlertWall record);
+
     int deleteByPrimaryKey(String id);
 
     AlertWall selectByType(Integer type);
+
+    List<AlertWall> findList();
 }

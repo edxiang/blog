@@ -14,6 +14,12 @@
     id, type, content, url, create_time, update_time
   </sql>
 
+  <select id="findList" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List"/>
+    FROM alert_wall
+  </select>
+
   <select id="selectByType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
@@ -92,5 +98,21 @@
       </if>
     </set>
     WHERE id=#{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByType" parameterType="org.kevin.blog.model.AlertWall">
+    update alert_wall
+    <set>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </set>
+    WHERE type=#{type,jdbcType=INTEGER}
   </update>
 </mapper>
