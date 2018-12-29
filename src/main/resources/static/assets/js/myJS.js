@@ -50,23 +50,3 @@ function selectArticleType(obj) {
   var x = $(obj);
   x.attr("href", "/articles?articleType=" + x.attr("data"));
 }
-
-$("#btnLogin").on('click', function () {
-  console.log("in login html");
-  $.ajax({
-    url: "/login",
-    type: "post",
-    data: {
-      username: $("#username").val(),
-      password: $("#password").val()
-    },
-    success: function (data) {
-      console.log(data);
-      if (data == '1')
-        window.location.href = "/index";
-      else
-        alert("wrong!");
-    }
-  });
-  return false;
-});

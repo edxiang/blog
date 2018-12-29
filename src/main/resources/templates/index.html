@@ -61,6 +61,7 @@
 <script src="../static/assets/plugins/jquery.loadTemplate-1.4.4.min.js"
         th:src="@{assets/plugins/jquery.loadTemplate-1.4.4.min.js}"></script>
 <script src="../static/assets/js/myJS.js" th:src="@{assets/js/myJS.js}"></script>
+<script src="../static/assets/plugins/md5.min.js" th:src="@{assets/plugins/md5.min.js}"></script>
 
 <script>
     Holder.addTheme('thumb', {
@@ -68,6 +69,12 @@
         fg: '#eceeef',
         text: 'Thumbnail'
     });
+
+    function fnMd5(){
+      let x = "value";
+      let md = md5(x);
+      console.log(md);
+    }
 </script>
 </body>
 </html>

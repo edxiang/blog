@@ -2,7 +2,9 @@ package org.kevin.blog;
 
 import org.junit.Test;
 import org.kevin.blog.common.util.CommonUtils;
+import org.springframework.util.DigestUtils;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,5 +22,11 @@ public class Tester {
     public void testUUID(){
         List<String> list = new ArrayList<>();
         System.out.println(list.size());
+    }
+
+    @Test // works
+    public void testMD5(){
+        String x = DigestUtils.md5DigestAsHex("value".getBytes());
+        System.out.println(x);
     }
 }
