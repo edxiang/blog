@@ -3,7 +3,7 @@
 <mapper namespace="org.kevin.blog.mapper.FinanceMapper">
   <resultMap id="BaseResultMap" type="org.kevin.blog.model.Finance">
     <result column="id" jdbcType="VARCHAR" property="id" />
-    <result column="cost" jdbcType="INTEGER" property="cost" />
+    <result column="cost" jdbcType="DECIMAL" property="cost" />
     <result column="for_what" jdbcType="VARCHAR" property="forWhat" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
@@ -38,7 +38,7 @@
   <insert id="insert" parameterType="org.kevin.blog.model.Finance">
     insert into finance (id, cost, for_what, 
       create_time)
-    values (#{id,jdbcType=VARCHAR}, #{cost,jdbcType=INTEGER}, #{forWhat,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{cost,jdbcType=DECIMAL}, #{forWhat,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="org.kevin.blog.model.Finance">
@@ -62,7 +62,7 @@
         #{id,jdbcType=VARCHAR},
       </if>
       <if test="cost != null">
-        #{cost,jdbcType=INTEGER},
+        #{cost,jdbcType=DECIMAL},
       </if>
       <if test="forWhat != null">
         #{forWhat,jdbcType=VARCHAR},

@@ -22,7 +22,7 @@
 
 <div class="container">
   <header th:replace="~{fragments :: header}"></header>
-  <div th:replace="~{fragments :: secretMomentInfoPanel}"></div>
+  <div th:replace="~{fragments :: financialManagementPanel}"></div>
 </div>
 
 <main role="main" class="container">
@@ -92,7 +92,12 @@
         type: 'post'
       },
       columns: [
-        {data: "cost"},
+        {
+          data: "cost",
+          render: function(data){
+            return "¥"+data;
+          }
+        },
         {data: "forWhat"},
         {
           // data:"createTime"

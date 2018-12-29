@@ -46,7 +46,7 @@ public class SaveController {
     }
 
     @RequestMapping(value = "/saveSpending", method = RequestMethod.POST)
-    public int saveSpending(@RequestParam(value = "cost") int cost,
+    public int saveSpending(@RequestParam(value = "cost") Double cost,
                             @RequestParam(value = "forWhat") String forWhat) {
         Finance record = new Finance();
         record.setCost(cost);

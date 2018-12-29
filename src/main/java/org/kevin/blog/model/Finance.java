@@ -5,7 +5,7 @@ import java.util.Date;
 public class Finance {
     private String id;
 
-    private Integer cost;
+    private Double cost;
 
     private String forWhat;
 
@@ -19,11 +19,11 @@ public class Finance {
         this.id = id == null ? null : id.trim();
     }
 
-    public Integer getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(Integer cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 

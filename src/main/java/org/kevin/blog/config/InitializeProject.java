@@ -39,6 +39,9 @@ public class InitializeProject implements InitializingBean, ApplicationContextAw
 
         AlertWall secretMomentWall = alertWallService.selectByType(2);
         sc.setAttribute("secretMomentWall",secretMomentWall);
+
+        AlertWall financeManagement = alertWallService.selectByType(3);
+        sc.setAttribute("financeManagement",financeManagement);
     }
 
     @Override

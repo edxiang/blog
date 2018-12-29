@@ -43,6 +43,13 @@
   </div>
 </div>
 
+<div class="jumbotron p-3 p-md-4 text-secondary rounded bg-light" th:fragment="financialManagementPanel">
+  <div class="col-md-11 px-0">
+    <p class="lead my-3 ownFont font20" th:text="${application.financeManagement.content}">alert wall</p>
+    <p class=" mb-0"><a href="#" class="text-secondary" th:href="${application.financeManagement.url}">...</a></p>
+  </div>
+</div>
+
 <div class="modal fade" id="signinModal" tabindex="-1" th:fragment="signinModal">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
