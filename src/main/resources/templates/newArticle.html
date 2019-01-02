@@ -105,43 +105,41 @@
 <script src="../static/assets/plugins/ckeditor.js" th:src="@{assets/plugins/ckeditor.js}"></script>
 <script src="../static/assets/plugins/layer/layer.js" th:src="@{assets/plugins/layer/layer.js}"></script>
 <script>
-    var myEditor = null;
-    $(function () {
-        ClassicEditor.create(document.querySelector("#editor5")).
-        then(editor => {
-            myEditor = editor;
-    }).
-        catch(error =>{
-            console.error(error);
+  var myEditor = null;
+  $(function () {
+    ClassicEditor.create(document.querySelector("#editor5")).then(editor => {
+      myEditor = editor;
+    }).catch(error => {
+      console.error(error);
     });
 
-        $("#newArticleForm").submit(function(){
-           var formData = $("#newArticleForm").serialize();
-           $.ajax({
-               url: "/saveArticle",
-               type: "post",
-               data: formData,
-               success: function (data) {
-                   if (data == '200') {
-                       layer.open({
-                           title: false,
-                           content: 'the article has been saved..',
-                           btn: false,
-                           closeBtn: false,
-                           time: 2000,
-                           end: function () {
-                               location.href = "/index";
-                           }
-                       });
-                   }
-               },
-               error: function(){
-                   alert("NO!");
-               }
-           });
-           return false;
-        });
+    $("#newArticleForm").submit(function () {
+      var formData = $("#newArticleForm").serialize();
+      $.ajax({
+        url: "/saveArticle",
+        type: "post",
+        data: formData,
+        success: function (data) {
+          if (data == '200') {
+            layer.open({
+              title: false,
+              content: 'the article has been saved..',
+              btn: false,
+              closeBtn: false,
+              time: 2000,
+              end: function () {
+                location.href = "/index";
+              }
+            });
+          }
+        },
+        error: function () {
+          alert("NO!");
+        }
+      });
+      return false;
     });
+  });
 </script>
 
 <script>

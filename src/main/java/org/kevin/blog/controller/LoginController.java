@@ -30,6 +30,8 @@ public class LoginController {
         UsernamePasswordToken token = new UsernamePasswordToken(request.getParameter("username"), request.getParameter("password"));
         try {
             subject.login(token);
+            SecurityUtils.getSubject().getSession().setTimeout(24 * 60 * 60 * 1000);
+
             String originalUrl = WebUtils.getSavedRequest(request).getRequestUrl();
             return "redirect:" + originalUrl;
         } catch (AuthenticationException e) {

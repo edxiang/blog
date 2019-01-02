@@ -16,6 +16,7 @@
   <link href="../static/assets/css/blog.css" th:href="@{assets/css/blog.css}" rel="stylesheet">
   <link href="../static/assets/css/myCSS.css" th:href="@{assets/css/myCSS.css}" rel="stylesheet"/>
   <link href="../static/assets/css/datatables.min.css" th:href="@{assets/css/datatables.min.css}" rel="stylesheet"/>
+  <link href="../static/assets/css/bootstrap-datepicker.css" th:href="@{assets/css/bootstrap-datepicker.css}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -74,6 +75,7 @@
 <script src="../static/assets/js/vendor/holder.min.js" th:src="@{assets/js/vendor/holder.min.js}"></script>
 <script src="../static/assets/js/myJS.js" th:src="@{assets/js/myJS.js}"></script>
 <script src="../static/assets/plugins/datatables.min.js" th:src="@{assets/plugins/datatables.min.js}"></script>
+<script src="../static/assets/plugins/bootstrap-datepicker.js" th:src="@{assets/plugins/bootstrap-datepicker.js}"></script>
 <script>
   $(function () {
     $("#spendingTable").DataTable({
@@ -104,8 +106,7 @@
           "data":"createTime",
           render: function (data) {
             let recordTime = new Date(data);
-            return recordTime.getFullYear() + "-" + recordTime.getMonth() + "-" + recordTime.getDay()
-                + " " + recordTime.getHours() + ":" + recordTime.getMinutes() + ":" + recordTime.getSeconds();
+            return recordTime.getFullYear() + "-" + (recordTime.getMonth() + 1) + "-" + recordTime.getDay();
           }
         }
       ]

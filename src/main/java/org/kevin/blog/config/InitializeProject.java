@@ -1,5 +1,6 @@
 package org.kevin.blog.config;
 
+import org.apache.shiro.SecurityUtils;
 import org.kevin.blog.model.AlertWall;
 import org.kevin.blog.model.ArticleType;
 import org.kevin.blog.service.AlertWallService;
