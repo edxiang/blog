@@ -39,6 +39,7 @@
       <tr>
         <th>COST</th>
         <th>FOR_WHAT</th>
+        <th>TYPE</th>
         <th>TIME</th>
       </tr>
     </thead>
@@ -51,8 +52,16 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        <form id="spendingForm">
+        <form id="spendingForm" class="form-inline">
           <input type="text" class="form-control col-5" id="cost" placeholder="cost"/>
+          &nbsp;
+          <select class="custom-control-inline btn-light col-4" id="spendingType" name="type">
+            <option value="Eating&Drinking">Eating&Drinking</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Traffic">Traffic</option>
+            <option value="Social">Social</option>
+            <option value="Whatever">Whatever</option>
+          </select>
           <textarea class="form-control col-10" id="forWhat" rows="3"></textarea>
         </form>
       </div>
@@ -101,6 +110,7 @@
           }
         },
         {data: "forWhat"},
+        {data: "type"},
         {
           // data:"createTime"
           "data":"createTime",
@@ -110,19 +120,6 @@
           }
         }
       ]
-    });
-  });
-
-  $("#btnTest").on('click', function () {
-    $.ajax({
-      url: "/spending/list",
-      type: "post",
-      success: function (data) {
-        console.log(data);
-      },
-      error: function (data) {
-        console.log("wrong");
-      }
     });
   });
 
@@ -136,7 +133,8 @@
       type: "post",
       data: {
         cost: $("#cost").val(),
-        forWhat: $("#forWhat").val()
+        forWhat: $("#forWhat").val(),
+        type: $("#spendingType").val()
       },
       success: function (data) {
         if (data == '1')

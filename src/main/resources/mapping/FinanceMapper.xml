@@ -5,10 +5,11 @@
     <result column="id" jdbcType="VARCHAR" property="id" />
     <result column="cost" jdbcType="DECIMAL" property="cost" />
     <result column="for_what" jdbcType="VARCHAR" property="forWhat" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id,cost,for_what,create_time
+    id,cost,for_what,type,create_time
   </sql>
 
   <select id="findList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -27,19 +28,22 @@
     FROM finance
     <where>
       <if test="forWhat != null">
-        for_what like concat("%",${forWhat,jdbcType=VARCHAR},"%")
+        for_what like concat("%",#{forWhat,jdbcType=VARCHAR},"%")
       </if>
       <if test="createTime != null">
-        AND create_time > ${createTime,jdbcType=TIMESTAMP}
+        AND create_time > #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="type != null">
+        AND type = #{type,jdbcType=VARCHAR}
       </if>
     </where>
   </select>
 
   <insert id="insert" parameterType="org.kevin.blog.model.Finance">
-    insert into finance (id, cost, for_what, 
+    insert into finance (id, cost, for_what, type,
       create_time)
     values (#{id,jdbcType=VARCHAR}, #{cost,jdbcType=DECIMAL}, #{forWhat,jdbcType=VARCHAR},
-      #{createTime,jdbcType=TIMESTAMP})
+      #{type,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="org.kevin.blog.model.Finance">
     insert into finance
@@ -52,6 +56,9 @@
       </if>
       <if test="forWhat != null">
         for_what,
+      </if>
+      <if test="type != null">
+        type,
       </if>
       <if test="createTime != null">
         create_time,
@@ -66,6 +73,9 @@
       </if>
       <if test="forWhat != null">
         #{forWhat,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},

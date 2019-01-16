@@ -9,6 +9,8 @@ public class Finance {
 
     private String forWhat;
 
+    private String type;
+
     private Date createTime;
 
     public String getId() {
@@ -33,6 +35,14 @@ public class Finance {
 
     public void setForWhat(String forWhat) {
         this.forWhat = forWhat == null ? null : forWhat.trim();
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Date getCreateTime() {

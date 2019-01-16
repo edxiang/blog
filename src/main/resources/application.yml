@@ -17,19 +17,19 @@ spring:
       auto-commit: true  # configures the default auto-commit behavior of connections returned from pool. Default value is true.
 
 
-#  cache:
-#    type: redis
-#  redis:
-#    host: localhost
-#    port: 6379
-#    password:
-#    lettuce:
-#      pool:
-#        max-active: 8
-#        max-idle: 5
-#        min-idle: 2
-#        max-wait: -1ms
-#      shutdown-timeout: 100ms
+  cache:
+    type: redis
+  redis:
+    database: 0
+    host: 144.34.242.178
+    port: 6379
+    password: myRedis
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 5
+        min-idle: 1
+        max-wait: 10000
 
 #thymeleaf
   thymeleaf:
@@ -59,3 +59,6 @@ spring:
 mybatis:
   mapper-locations: classpath:mapping/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
   type-aliases-package: org.kevin.blog.model  # 注意：对应实体类的路径
+
+logging:
+  config: classpath:logback.xml

@@ -47,10 +47,12 @@ public class SaveController {
 
     @RequestMapping(value = "/saveSpending", method = RequestMethod.POST)
     public int saveSpending(@RequestParam(value = "cost") Double cost,
-                            @RequestParam(value = "forWhat") String forWhat) {
+                            @RequestParam(value = "forWhat") String forWhat,
+                            @RequestParam(value = "type") String type) {
         Finance record = new Finance();
         record.setCost(cost);
         record.setForWhat(CommonUtils.replaceLineCharacter(forWhat));
+        record.setType(type);
         return financeService.insert(record);
     }
 }

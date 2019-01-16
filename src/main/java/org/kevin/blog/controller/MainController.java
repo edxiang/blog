@@ -6,15 +6,13 @@ import org.kevin.blog.service.AlertWallService;
 import org.kevin.blog.service.ArticleService;
 import org.kevin.blog.service.ArticleTypeService;
 import org.kevin.blog.service.SecretMomentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -23,6 +21,7 @@ import java.util.List;
  */
 @Controller
 public class MainController {
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ArticleTypeService articleTypeService;
@@ -35,8 +34,12 @@ public class MainController {
 
     @RequestMapping({"/", "", "/index"})
     public String index(ModelMap modelMap) {
+        logger.info("in the index page.");
+
         List<ArticleWithBLOBs> articles = articleService.findList(8);
         modelMap.addAttribute("articles", articles);
+
+        logger.error("the article's size:" + articles.size());
         return "index";
     }
 

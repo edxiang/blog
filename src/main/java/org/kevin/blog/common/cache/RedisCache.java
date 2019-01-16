@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 /**
  * @author Kevin.Z
  * @version 12/3/18
+ *
+ * 可以使用 redis 了。01-15
  */
 @Component
 public class RedisCache {

@@ -11,14 +11,19 @@ import org.kevin.blog.service.ArticleService;
 import org.kevin.blog.service.ArticleTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class BlogApplicationTests {
+
+	@Resource
+	private RedisTemplate<String,Object> redisTemplate;
 
 	@Autowired
 	private ArticleTypeService articleTypeService;
@@ -27,6 +32,12 @@ public class BlogApplicationTests {
 
 	@Test
 	public void contextLoads() {
+	}
+
+	@Test
+	public void testRedis(){
+		redisTemplate.opsForValue().set("name","kevin");
+		System.out.println(redisTemplate.opsForValue().get("name"));
 	}
 
 
