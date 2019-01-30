@@ -7,10 +7,7 @@ import org.kevin.blog.model.dto.DataTables;
 import org.kevin.blog.service.FinanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -44,5 +41,12 @@ public class SpendingController {
         dt.setDraw(draw);
         dt.setData(pageInfo.getList());
         return JSON.toJSONString(dt);
+    }
+
+    @PostMapping("/spending/sum")
+    @ResponseBody
+    public String sum(@RequestParam("fromDate")String fromDate,
+                      @RequestParam("toDate")String toDate){
+        return financeService.sumByDate(fromDate,toDate);
     }
 }

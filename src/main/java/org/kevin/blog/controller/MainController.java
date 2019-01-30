@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 
 /**
@@ -68,8 +69,9 @@ public class MainController {
     @RequestMapping("/secretMoment")
     public String secretMoment(@RequestParam(value = "pageNum", required = false) Integer pageNum,
                                @RequestParam(value = "pageSize", required = false) Integer pageSize,
+                               @RequestParam(value = "moment", required = false) String moment,
                                ModelMap modelMap) {
-        SecretMoment secretMoment = null;
+        SecretMoment secretMoment = new SecretMoment();
         pageNum = pageNum == null ? 1 : pageNum;
         pageSize = pageSize == null ? 10 : pageSize;
         PageInfo<SecretMoment> pageInfo = secretMomentService.selectByCondition(secretMoment, pageNum, pageSize);
@@ -80,9 +82,9 @@ public class MainController {
     }
 
     @RequestMapping("/alertWall")
-    public String alertWall(ModelMap modelMap){
+    public String alertWall(ModelMap modelMap) {
         List<AlertWall> alertWallList = alertWallService.findList();
-        modelMap.addAttribute("alertWallTypes",alertWallList);
+        modelMap.addAttribute("alertWallTypes", alertWallList);
 
         return "alertWall";
     }

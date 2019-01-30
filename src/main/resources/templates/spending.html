@@ -17,6 +17,12 @@
   <link href="../static/assets/css/myCSS.css" th:href="@{assets/css/myCSS.css}" rel="stylesheet"/>
   <link href="../static/assets/css/datatables.min.css" th:href="@{assets/css/datatables.min.css}" rel="stylesheet"/>
   <link href="../static/assets/css/bootstrap-datepicker.css" th:href="@{assets/css/bootstrap-datepicker.css}" rel="stylesheet"/>
+
+  <style>
+    .padding10{
+      padding: 10px;
+    }
+  </style>
 </head>
 
 <body>
@@ -33,6 +39,19 @@
       spend
     </button>
   </div>
+  <form class="form-inline" id="sumForm">
+    <div class="form-group padding10">
+      <label for="fromDate">fromDate:</label>
+      <input name="fromDate" type="text" class="form-control" id="fromDate" placeholder="from date"
+             readonly="readonly" required/>
+    </div>
+    <div class="form-group padding10">
+      <label for="toDate">toDate:</label>
+      <input name="fromDate" type="text" class="form-control" id="toDate" placeholder="to date"
+             readonly="readonly" required/>
+    </div>
+    <button type="submit" class="btn btn-info padding10">sum</button>
+  </form>
 
   <table id="spendingTable" class="display" style="width:100%">
     <thead>
@@ -46,6 +65,25 @@
   </table>
 
 </main>
+
+<div class="modal fade" id="sumModal" tabindex="-1" role="dialog" aria-labelledby="sumModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">What I have been cost...</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="sumBody">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="addSpending" tabindex="-1">
@@ -116,7 +154,7 @@
           "data":"createTime",
           render: function (data) {
             let recordTime = new Date(data);
-            return recordTime.getFullYear() + "-" + (recordTime.getMonth() + 1) + "-" + recordTime.getDay();
+            return recordTime.getFullYear() + "-" + (recordTime.getMonth() + 1) + "-" + recordTime.getDate();
           }
         }
       ]
@@ -144,6 +182,43 @@
         console.log("got wrong.");
       }
     });
+  });
+
+  $('#fromDate').datepicker({
+    "autoclose":true,
+    "format":"yyyy-mm-dd",
+    "endDate":new Date()
+  });
+
+  $('#toDate').datepicker({
+    "autoclose":true,
+    "format":"yyyy-mm-dd",
+    "endDate":new Date()
+  });
+
+  $("#sumForm").submit(function(){
+    let fromDate = $("#fromDate").val();
+    let toDate = $("#toDate").val();
+    if(fromDate == '' || toDate == ''){
+      alert("please fill the input");
+      return false;
+    }
+    $.ajax({
+      url: "/spending/sum",
+      type: "POST",
+      data:{
+        fromDate: fromDate,
+        toDate: toDate
+      },
+      success: function(data){
+        $("#sumBody").text(data);
+        $("#sumModal").modal('show');
+      },
+      error: function(){
+        alert("Got Wrong!");
+      }
+    });
+    return false;
   });
 </script>
 </body>

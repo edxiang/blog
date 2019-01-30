@@ -22,6 +22,12 @@
     </if>
   </select>
 
+  <select id="sumByDate" resultType="java.lang.Double">
+    SELECT sum(cost)
+    FROM finance
+    WHERE create_time BETWEEN #{fromDate,jdbcType=TIMESTAMP} AND #{toDate,jdbcType=TIMESTAMP}
+  </select>
+
   <select id="selectByCondition" resultMap="BaseResultMap">
     SELECT
       <include refid="Base_Column_List"/>

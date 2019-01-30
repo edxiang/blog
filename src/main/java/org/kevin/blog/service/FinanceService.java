@@ -15,4 +15,6 @@ public interface FinanceService {
     List<Finance> findList(Integer limit);
 
     PageInfo<Finance> list(Finance record, Integer pageNum, Integer pageSize);
+
+    String sumByDate(String fromDate,String toDate);
 }
