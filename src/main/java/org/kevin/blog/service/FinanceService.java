@@ -16,5 +16,7 @@ public interface FinanceService {
 
     PageInfo<Finance> list(Finance record, Integer pageNum, Integer pageSize);
 
-    String sumByDate(String fromDate,String toDate);
+    String sumByDate(String fromDate,String toDate,String type);
+
+    String sumByType(String type);
 }

@@ -46,7 +46,8 @@ public class SpendingController {
     @PostMapping("/spending/sum")
     @ResponseBody
     public String sum(@RequestParam("fromDate")String fromDate,
-                      @RequestParam("toDate")String toDate){
-        return financeService.sumByDate(fromDate,toDate);
+                      @RequestParam("toDate")String toDate,
+                      @RequestParam("type")String type){
+        return financeService.sumByDate(fromDate,toDate,type);
     }
 }

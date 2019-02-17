@@ -22,10 +22,20 @@
     </if>
   </select>
 
-  <select id="sumByDate" resultType="java.lang.Double">
+  <select id="sumByCondition" resultType="java.lang.Double">
     SELECT sum(cost)
     FROM finance
-    WHERE create_time BETWEEN #{fromDate,jdbcType=TIMESTAMP} AND #{toDate,jdbcType=TIMESTAMP}
+    WHERE
+      create_time BETWEEN #{fromDate,jdbcType=TIMESTAMP} AND #{toDate,jdbcType=TIMESTAMP}
+      <if test="type != null and type != ''">
+        AND type = #{type,jdbcType=VARCHAR}
+      </if>
+  </select>
+
+  <select id="sumByType" resultType="java.lang.Double">
+    SELECT sum(cost)
+    FROM finance
+    WHERE type = #{type,jdbcType=VARCHAR}
   </select>
 
   <select id="selectByCondition" resultMap="BaseResultMap">

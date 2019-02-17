@@ -27,4 +27,15 @@ public class CommonUtils {
         }
         return null;
     }
+
+    public static Date getDateEnd(String dateStr){
+        try{
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            dateStr += " 23:59:59";
+            return sdf.parse(dateStr);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -9,7 +9,6 @@ import org.kevin.blog.service.FinanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -42,10 +41,17 @@ public class FinanceServiceImpl implements FinanceService {
     }
 
     @Override
-    public String sumByDate(String fromDate, String toDate) {
+    public String sumByDate(String fromDate, String toDate, String type) {
         Date fDate = CommonUtils.getDate(fromDate);
-        Date tDate = CommonUtils.getDate(toDate);
-        double sum = financeMapper.sumByDate(fDate,tDate);
+        Date tDate = CommonUtils.getDateEnd(toDate);
+
+        double sum = financeMapper.sumByCondition(fDate, tDate,type);
         return "the sum of you choose dates is: " + sum;
+    }
+
+    @Override
+    public String sumByType(String type) {
+        double sum = financeMapper.sumByType(type);
+        return "the sum of you choose type '" + type.toUpperCase() + "' is " + sum;
     }
 }

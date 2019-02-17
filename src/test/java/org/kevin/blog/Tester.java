@@ -6,6 +6,7 @@ import org.springframework.util.DigestUtils;
 
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,5 +29,12 @@ public class Tester {
     public void testMD5(){
         String x = DigestUtils.md5DigestAsHex("value".getBytes());
         System.out.println(x);
+    }
+
+    @Test
+    public void testDate(){
+        String dateStr = "2019-01-31";
+        Date d = CommonUtils.getDateEnd(dateStr);
+        System.out.println(d);
     }
 }

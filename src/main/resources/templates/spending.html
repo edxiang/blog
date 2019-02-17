@@ -50,10 +50,18 @@
       <input name="fromDate" type="text" class="form-control" id="toDate" placeholder="to date"
              readonly="readonly" required/>
     </div>
-    <button type="submit" class="btn btn-info padding10">sum</button>
+    <select class="form-control padding10" id="searchType">
+      <option value="">ALL</option>
+      <option value="Eating&Drinking">Eating&Drinking</option>
+      <option value="Clothing">Clothing</option>
+      <option value="Traffic">Traffic</option>
+      <option value="Social">Social</option>
+      <option value="Whatever">Whatever</option>
+    </select>
+    <button type="submit" class="btn btn-info" style="margin-left:10px;">sum</button>
   </form>
 
-  <table id="spendingTable" class="display" style="width:100%">
+  <table id="spendingTable" class="display table mb-0" style="width:100%">
     <thead>
       <tr>
         <th>COST</th>
@@ -199,6 +207,7 @@
   $("#sumForm").submit(function(){
     let fromDate = $("#fromDate").val();
     let toDate = $("#toDate").val();
+    let type = $("#searchType").val();
     if(fromDate == '' || toDate == ''){
       alert("please fill the input");
       return false;
@@ -208,7 +217,8 @@
       type: "POST",
       data:{
         fromDate: fromDate,
-        toDate: toDate
+        toDate: toDate,
+        type: type
       },
       success: function(data){
         $("#sumBody").text(data);

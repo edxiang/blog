@@ -15,6 +15,9 @@ public interface FinanceMapper {
 
     List<Finance> selectByCondition(Finance record);
 
-    double sumByDate(@Param("fromDate") Date fromDate,
-                     @Param("toDate") Date toDate);
+    double sumByCondition(@Param("fromDate") Date fromDate,
+                     @Param("toDate") Date toDate,
+                     @Param("type")String type);
+
+    double sumByType(@Param("type") String type);
 }
