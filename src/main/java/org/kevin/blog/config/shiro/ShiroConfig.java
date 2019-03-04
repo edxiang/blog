@@ -34,16 +34,10 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
-//        filterChainDefinitionMap.put("/css/**","anon");
-//        filterChainDefinitionMap.put("/fonts/**","anon");
-//        filterChainDefinitionMap.put("/icon/**","anon");
-//        filterChainDefinitionMap.put("/js/**","anon");
-//        filterChainDefinitionMap.put("/media/**","anon");
-//        filterChainDefinitionMap.put("/plugins/**","anon");
 
         filterChainDefinitionMap.put("/assets/**","anon");
         filterChainDefinitionMap.put("/index","anon");
-        filterChainDefinitionMap.put("/article*","anon");
+//        filterChainDefinitionMap.put("/article*","anon");
         filterChainDefinitionMap.put("/signin","anon");
         filterChainDefinitionMap.put("/login","anon");
         filterChainDefinitionMap.put("/","anon");
